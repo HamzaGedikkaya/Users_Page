@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    @picsum_url = "https://picsum.photos/id/#{@user.id}/250/166"
   end
 
   # GET /users/new
