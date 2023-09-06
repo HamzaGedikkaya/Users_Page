@@ -4,18 +4,19 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     @users = User.all
+    @q = User.ransack(params[:q])    
+    @users = @q.result(distinct: true)
   end
 
   # GET /users/1 or /users/1.json
   def show
-    @picsum_url = "https://picsum.photos/id/#{@user.id}/250/166"
   end
-
+  
   # GET /users/new
   def new
     @user = User.new
   end
-
+  
   # GET /users/1/edit
   def edit
   end

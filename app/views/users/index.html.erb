@@ -1,6 +1,11 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Users</h1>
+  
+<%= search_form_for @q do |f| %>
+  <div >
+    <%= f.search_field :username_cont, class:"form-control"%>
+    <%= f.submit "Search" %>
+  </div>
+<% end %>
 
 <div id="users">
   <% @users.each do |user| %>
