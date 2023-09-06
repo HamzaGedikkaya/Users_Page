@@ -1,11 +1,24 @@
-<h1>Editing user</h1>
-
 <%= render "form", user: @user %>
-
-<br>
-
 <div>
-  <img src="<%= @picsum_url %>" alt="User's Picture">
-  <%= link_to "Show this user", @user %> |
   <%= link_to "Back to users", users_path %>
+  <img src="<%= @picsum_url %>" alt="User's Picture">
+</div>
+
+<p>Albums:</p>
+<ul>
+  <% @albums.each do |album| %>
+    <li>
+      <img src="<%= "https://via.placeholder.com/150/#{album['id']}" %>" alt="Album's Picture">
+      <%= album['title'] %>
+      <a href="#" class="view-album-photos" data-album-id="<%= album['id'] %>">View Photos</a>
+    </li>
+  <% end %>
+</ul>
+
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close-popup">×</span>
+    <h2>Album Photos</h2>
+    <ul id="album-photos"></ul>
+  </div>
 </div>

@@ -10,11 +10,7 @@
 <div id="users">
   <% @users.each do |user| %>
     <%= render user %>
-      <img src="<%= "https://picsum.photos/id/#{user.id}/250/166" %>" alt="User's Picture">
-    <p>
-      <%= link_to "Show this user", user %>
-    </p>
+    <img src="<%= "https://picsum.photos/id/#{user.id}/250/166" %>" alt="User's Picture">
+    <%= link_to "Edit", edit_user_path(user) %>
   <% end %>
 </div>
-
-<%= link_to "New user", new_user_path %>
