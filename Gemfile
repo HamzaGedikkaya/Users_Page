@@ -73,3 +73,5 @@ end
 
 gem 'httparty'
 gem 'ransack'
+gem "bootstrap"
+gem "sassc-rails"
