@@ -1,16 +1,33 @@
-<h1>Users</h1>
-  
-<%= search_form_for @q do |f| %>
-  <div >
-    <%= f.search_field :username_cont, class:"form-control"%>
-    <%= f.submit "Search" %>
+<div class="container">
+  <div class="header my-3 d-flex justify-content-between">
+    <a class="navbar-brand fw-bold fs-4" href="<%= root_path %>">Users Page</a>
+    <%= search_form_for @q do |f| %>
+      <div class="d-flex">
+        <%= f.search_field :username_cont, class: "form-control w-75 me-1", placeholder: "Search User" %>
+        <%= f.submit "Search", class: "btn btn-success" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
 
-<div id="users">
-  <% @users.each do |user| %>
-    <img src="<%= "https://picsum.photos/id/#{user.id}/250/166" %>" alt="User's Picture">
-    <%= render user %>
-    <%= link_to "Edit", edit_user_path(user) %>
-  <% end %>
+  <div id="users" class="mx-auto" style="width: 80%">
+    <% if @users.any? %>
+      <% @users.each do |user| %>
+        <div id="<%= dom_id user %>", class="d-flex justify-content-center align-items-center my-3 rounded-5 userindex">
+          <img src="<%= "https://picsum.photos/id/#{user.id}/250/166" %>" alt="User's Picture" class="rounded-start-5 img-fluid ">
+          <div class="mx-3 mx-lg-5">
+            <strong>Name: </strong><%= user.name %><br>
+            <strong>Username: </strong><%= user.username %> 
+          </div>
+
+          <div class="ms-auto">
+            <%= link_to edit_user_path(user), class: "fs-4 text-light me-5" do %>
+              <i class="fa-solid fa-user-pen"></i>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="fw-bold text-danger fs-4 text-center">No users found!</p>
+    <% end %>
+  </div>
 </div>

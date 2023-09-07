@@ -1,33 +1,35 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const popup = document.getElementById('popup');
-  const albumPhotos = document.getElementById('album-photos');
-  const closePopup = document.querySelector('.close-popup');
+document.addEventListener("DOMContentLoaded", () => {
+  const popup = document.getElementById("popup");
+  const albumPhotosList = document.getElementById("album-photos");
+  const closePopup = document.querySelector(".close-popup");
 
-  closePopup.addEventListener('click', () => closePopupWindow());
-
-  document.querySelectorAll('.view-album-photos').forEach(link => {
-      link.addEventListener('click', e => {
-      e.preventDefault();
-      const albumId = link.getAttribute('data-album-id');
-      fetch(`https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`)
-          .then(response => response.json())
-          .then(data => {
-          albumPhotos.innerHTML = data.map(photo => `<li><img src="${photo.thumbnailUrl}" alt="${photo.title}" /></li>`).join('');
-          })
-          .catch(error => console.error(error));
-
-      popup.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-      });
-  });
-
-  document.addEventListener('mousedown', e => {
-      if (!popup.contains(e.target) && e.target !== popup) closePopupWindow();
-  });
+  function openPopup(albumId) {
+    fetch(`https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`)
+      .then(response => response.json())
+      .then(data => {
+        albumPhotosList.innerHTML = data.map(photo => `
+          <li class="photo-item">
+            <img src="${photo.thumbnailUrl}" alt="${photo.title}">
+            <p>${photo.title}</p>
+          </li>
+        `).join('');
+        popup.style.display = "block";
+      })
+      .catch(error => console.error(error));
+  }
 
   function closePopupWindow() {
-      popup.style.display = 'none';
-      albumPhotos.innerHTML = '';
-      document.body.style.overflow = 'auto';
+    popup.style.display = "none";
   }
+
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (target.classList.contains('view-album-photos')) {
+      e.preventDefault();
+      const albumId = target.getAttribute('data-album-id');
+      openPopup(albumId);
+    } else if (target === closePopup || !popup.contains(target)) {
+      closePopupWindow();
+    }
+  });
 });

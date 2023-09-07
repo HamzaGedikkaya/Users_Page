@@ -1,24 +1,38 @@
-<%= render "form", user: @user %>
-<div>
-  <%= link_to "Back to users", users_path %>
-  <img src="<%= @picsum_url %>" alt="User's Picture">
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card user-bg text-center rounded-5">
+        <div class="card-header rounded-top-5 overflow-hidden">
+          <img src="<%= @picsum_url %>" alt="User's Picture" class="py-1">
+        </div>
+        <div class="card-body rounded-bottom-5">
+          <%= render "form", user: @user %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="row">
+        <h3 class="text-center">Albums</h3>
+        <% @albums.each do |album| %>
+          <div class="col-md-6 col-lg-3 my-4 text-center">
+            <div class="card rounded-5 h-100 mx-1">
+              <img src="<%= "https://via.placeholder.com/150/#{album['id']}" %>" alt="Album's Picture" class="img-thumbnail">
+              <%= album['title'] %>
+              <div class="d-flex justify-content-center align-items-center mt-auto">
+                <a href="" class="view-album-photos btn btn-outline-primary" data-album-id="<%= album['id'] %>">View Photos</a>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
 
-<p>Albums:</p>
-<ul>
-  <% @albums.each do |album| %>
-    <li>
-      <img src="<%= "https://via.placeholder.com/150/#{album['id']}" %>" alt="Album's Picture">
-      <%= album['title'] %>
-      <a href="#" class="view-album-photos" data-album-id="<%= album['id'] %>">View Photos</a>
-    </li>
-  <% end %>
-</ul>
-
-<div id="popup" class="popup">
+<div id="popup" class="popup rounded-4 w-75">
+    <span class="close-popup text-white">X</span>
+    <h2 class="text-center fw-bold">Album Photos</h2>
   <div class="popup-content">
-    <span class="close-popup">×</span>
-    <h2>Album Photos</h2>
-    <ul id="album-photos"></ul>
+    <ul id="album-photos" class="list-unstyled d-flex mt-4"></ul>
   </div>
 </div>
