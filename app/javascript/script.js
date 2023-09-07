@@ -1,3 +1,4 @@
+// ! POPUP
 document.addEventListener("DOMContentLoaded", () => {
   const popup = document.getElementById("popup");
   const albumPhotosList = document.getElementById("album-photos");
@@ -32,4 +33,19 @@ document.addEventListener("DOMContentLoaded", () => {
       closePopupWindow();
     }
   });
+});
+
+// ! SEARCH
+document.addEventListener("DOMContentLoaded", function () {
+  const searchInput = document.getElementById("search-input");
+
+  if (searchInput) {
+    searchInput.addEventListener("input", function () {
+      const searchValue = this.value.trim();
+
+      if (searchValue === "") {
+        window.location.href = "/users";
+      }
+    });
+  }
 });

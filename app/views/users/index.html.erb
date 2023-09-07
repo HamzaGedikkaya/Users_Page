@@ -3,7 +3,7 @@
     <a class="navbar-brand fw-bold fs-4" href="<%= root_path %>">Users Page</a>
     <%= search_form_for @q do |f| %>
       <div class="d-flex">
-        <%= f.search_field :username_cont, class: "form-control w-75 me-1", placeholder: "Search User" %>
+        <%= f.search_field :username_cont, class: "form-control w-75 me-1", placeholder: "Search User", id: "search-input"%>
         <%= f.submit "Search", class: "btn btn-success" %>
       </div>
     <% end %>
